@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PracticeManagement.MAUI.ViewModels"
+             xmlns:c="clr-namespace:PracticeManagement.MAUI.Controls"
+             x:Class="PracticeManagement.MAUI.Views.ClientDetailView"
+             Title="Client Details"
+             NavigatedTo="OnArriving">
+    <VerticalStackLayout>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Padding="10"
+                   Text="Name" />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.Name}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Padding="10"
+                   Text="IsActive" />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.IsActive}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Padding="10"
+                   Text="OpenDate" />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.OpenDate}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Padding="10"
+                   Text="ClosedDate" />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.ClosedDate}"/>
+        </Grid>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition Width="11*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Padding="10"
+                   Text="Notes" />
+            <Entry Grid.Column="1" Text="{Binding Path=Model.Notes}"/>
+        </Grid>
+
+        <Grid Padding="5" Margin="5">
+            <Label Text="Projects:"></Label>
+        </Grid>
+        <Grid>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="12*"/>
+                    <ColumnDefinition Width="2*"/>
+                </Grid.ColumnDefinitions>
+                <c:SearchBarControl Grid.Column="0" 
+                                QueryText="{Binding Query}"
+                                SearchButtonText="Search"
+                                SearchCommand="{Binding SearchCommand}"/>
+                <Button Grid.Column="1" Text="Add Project" Command="{Binding AddProjectCommand}"></Button>
+            </Grid>
+        </Grid>
+        <ListView
+            ItemsSource="{Binding Projects}"
+            
+            ><!--SelectedItem="{Binding Path=SelectedProject}"-->
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="12*"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" VerticalTextAlignment="Center" Text="{Binding Display}"></Label>
+                            <Button Grid.Column="1" 
+                                    Text="Open"
+                                    Command="{Binding EditCommand}"
+                                    CommandParameter="{Binding}"></Button>
+                            <Button Grid.Column="2" Text="Timer" Command="{Binding TimerCommand}"/>
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Text="Refresh" Clicked="RefreshClicked" />
+        <Button Text="Client Bills"  Clicked="BillClicked"/>
+        <Button Text="Save Work and Close Client" Clicked="OkClicked"/>
+        <Button Text="Cancel" Clicked="CancelClicked"/>
+    </VerticalStackLayout>
+</ContentPage>

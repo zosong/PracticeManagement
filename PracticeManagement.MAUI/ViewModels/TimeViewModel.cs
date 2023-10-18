@@ -1,0 +1,104 @@
+using PracticeManagement.Library.DTO;
+using PracticeManagement.Library.Models;
+using PracticeManagement.Library.Services;
+using System.Collections.ObjectModel;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+
+namespace PracticeManagement.MAUI.ViewModels
+{
+    public class TimeViewModel : INotifyPropertyChanged
+    {
+        public Time Model { get; set; }
+        private Employee employee;
+        public Employee Employee
+        {
+            get
+            {
+                return employee;
+            }
+
+            set
+            {
+                employee = value;
+                if (employee != null)
+                {
+                    Model.EmployeeId = employee.Id;
+                }
+            }
+        }
+        public string EmployeeDisplay => Employee?.Name ?? string.Empty;
+        private ProjectDTO project;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void NotifyPropertyChanged([CallerMemberName] String propertyName = "")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+        }
+
+        public string HoursDisplay
+        {
+            get
+            {
+                return Model.Hours.ToString();
+            }
+
+            set
+            {
+                if (decimal.TryParse(value, out decimal v))
+                {
+                    Model.Hours = v;
+                }
+            }
+        }
+
+        public ProjectDTO Project
+        {
+            get
+            {
+                return project;
+            }
+
+            set
+            {
+                project = value;
+                if (project != null)
+                {
+                    Model.ProjectId = project.Id;
+                }
+            }
+        }
+        public string ProjectDisplay => Project?.ShortName ?? string.Empty;
+
+        public ObservableCollection<Employee> Employees
+            => new ObservableCollection<Employee>(EmployeeService.Current.Employees);
+        public ObservableCollection<ProjectDTO> Projects
+            => new ObservableCollection<ProjectDTO>(ProjectService.Current.Projects);
+        public TimeViewModel()
+        {
+            Model = new Time();
+        }
+
+        public TimeViewModel(Time t)
+        {
+            Model = t;
+            var employee = EmployeeService.Current.Get(t.EmployeeId);
+            if (employee != null)
+            {
+                Employee = employee;
+            }
+
+            var project = ProjectService.Current.Get(t.ProjectId);
+            if (project != null)
+            {
+                Project = project;
+            }
+
+        }
+
+        public void AddOrUpdate()
+        {
+            TimeService.Current.AddOrUpdate(Model);
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "fgwsNIQ51jRuWzf575RW0YvAu8pfaLXFuzdU5AJUrcp1SvjoW2Oh/MRflM/hnzGgwkHLaeGCcegiYRShNP5yWg==",
+  "success": true,
+  "projectFilePath": "/Users/zozos/Desktop/PracticeManagementFinal/PracticeManagement.Library/PracticeManagement.Library.csproj",
+  "expectedPackageFiles": [
+    "/Users/zozos/.nuget/packages/newtonsoft.json/13.0.3/newtonsoft.json.13.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}
